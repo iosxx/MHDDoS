@@ -1,0 +1,30 @@
+name: Run Python Script
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-python:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        cache: 'pip'
+        
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        
+    - name: Check syntax
+      run: |
+        python -m py_compile start.py
+        
+    - name: Run Python script
+      run: |
+        python start.py
